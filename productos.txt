@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "title": "sprite",
+    "description": "3 litros",
+    "price": 300,
+    "thumbnail": "sin imagen",
+    "code": "abc124",
+    "stock": 6
+  }
+]

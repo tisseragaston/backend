@@ -1,4 +1,4 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 
 class ProductManager {
     constructor(path) {
@@ -101,9 +101,9 @@ class ProductManager {
 const productManager = new ProductManager('./productos.txt');
 
 // Probando agregar productos:
-productManager.addProduct('coca', '2 litros', 200, 'sin imagen', 'abc123', 7);
-// productManager.addProduct('sprite', '3 litros', 300, 'sin imagen', 'abc124', 6);
-// productManager.addProduct('fanta', '2,5 litros', 250, 'sin imagen', 'abc125', 3);
+// productManager.addProduct('coca', '2 litros', 200, 'sin imagen', 'abc123', 7);
+productManager.addProduct('sprite', '3 litros', 300, 'sin imagen', 'abc124', 6);
+productManager.addProduct('fanta', '2,5 litros', 250, 'sin imagen', 'abc124', 3);
 // productManager.addProduct('agua', '1 litro', 150, 'sin imagen', 'abc126', 5);
 
 // Obtener productos actuales en el array:
