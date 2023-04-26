@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 
 class ProductManager {
     constructor(path) {
@@ -8,7 +8,7 @@ class ProductManager {
         this.nextId = 1;
     }
 
-    addProduct = (title, description, price, thumbnail, code, stock) => {
+    addProduct = async (title, description, price, thumbnail, code, stock) => {
         if (!title || !description || !price || !thumbnail || !code || !stock) {
             console.log('Todos los campos son obligatorios');
             return;
@@ -28,14 +28,17 @@ class ProductManager {
         };
         this.products.push(product);
         this.nextId++;
-
-        fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2), 'utf-8');
-        console.log('Producto agregado exitosamente');
+    
+        try {
+            await fs.promises.writeFile(this.path, JSON.stringify(this.products, null, 2), 'utf-8');
+            console.log('Producto agregado exitosamente');
+        } catch (err) {
+            console.error(err);
+        }
     }
-
     getProducts = async () => {
         try {
-            const data = await fs.readFileSync(this.path);
+            const data = await fs.promises.readFile(this.path);
             const products = JSON.parse(data);
             console.log(products);
             return this.products
@@ -46,7 +49,7 @@ class ProductManager {
 
     getProductById = async (id) => {
         try {
-            const data = await fs.readFileSync(this.path);
+            const data = await fs.promises.readFile(this.path);
             const products = JSON.parse(data);
             const product = products.find(product => product.id === id);
             if (product) {
@@ -58,15 +61,15 @@ class ProductManager {
             console.error(err);
         }
     }
-
+    
     updateProduct = async (id, updateThis) => {
         try {
-            const data = await fs.readFileSync(this.path);
+            const data = await fs.promises.readFile(this.path);
             const products = JSON.parse(data);
             const index = products.findIndex(product => product.id === id);
             if (index !== -1) {
                 products[index] = { ...products[index], ...updateThis };
-                fs.writeFileSync(this.path, JSON.stringify(products, null, 2), 'utf-8');
+                await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2), 'utf-8');
                 console.log('Producto actualizado exitosamente');
             } else {
                 console.log('Producto no actualizado (no encontrado)');
@@ -78,12 +81,12 @@ class ProductManager {
 
     deleteProduct = async (id) => {
         try {
-            const data = await fs.readFileSync(this.path);
+            const data = await fs.promises.readFile(this.path);
             const products = JSON.parse(data);
             const index = products.findIndex(product => product.id === id);
             if (index !== -1) {
                 products.splice(index, 1);
-                fs.writeFileSync(this.path, JSON.stringify(products, null, 2), 'utf-8');
+                await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2), 'utf-8');
                 console.log('Producto eliminado exitosamente');
             } else {
                 console.log('No se pudo eliminar, producto no encontrado');
@@ -98,7 +101,7 @@ class ProductManager {
 const productManager = new ProductManager('./productos.txt');
 
 // Probando agregar productos:
-// productManager.addProduct('coca', '2 litros', 200, 'sin imagen', 'abc123', 7);
+productManager.addProduct('coca', '2 litros', 200, 'sin imagen', 'abc123', 7);
 // productManager.addProduct('sprite', '3 litros', 300, 'sin imagen', 'abc124', 6);
 // productManager.addProduct('fanta', '2,5 litros', 250, 'sin imagen', 'abc125', 3);
 // productManager.addProduct('agua', '1 litro', 150, 'sin imagen', 'abc126', 5);
@@ -110,7 +113,7 @@ const productManager = new ProductManager('./productos.txt');
 // productManager.getProductById(1);
 
 // Actualizar un producto:
-// productManager.updateProduct(1, { price: 250, stock: 3 });
+// productManager.updateProduct(1, { price: 250, stock: 6 });
 
 // Eliminar un producto:
-// productManager.deleteProduct(2);
+// productManager.deleteProduct(4);
