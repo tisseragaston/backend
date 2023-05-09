@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "title": "vino",
+    "description": "1 litros",
+    "price": 250,
+    "thumbnail": "sin imagen",
+    "code": "abc123",
+    "stock": 10
+  }
+]

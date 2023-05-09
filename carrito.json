@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "products": [
+      {
+        "title": "manaos",
+        "id": "p101",
+        "description": "5 litros",
+        "price": 400
+      },
+      {
+        "title": "vergel",
+        "id": "p102",
+        "description": "2 litros",
+        "price": 500
+      },
+      {
+        "product": null,
+        "quantity": null
+      }
+    ]
+  }
+]
