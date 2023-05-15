@@ -1,11 +1,11 @@
 [
   {
-    "id": 1,
-    "title": "vino",
+    "id": "4cf8822c-a14d-47e8-b6f3-6640c83f7b0c",
+    "title": "soda",
     "description": "1 litros",
-    "price": 250,
+    "price": 300,
     "thumbnail": "sin imagen",
-    "code": "abc123",
+    "code": "abc125",
     "stock": 10
   }
 ]

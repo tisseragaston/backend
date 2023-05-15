@@ -1,36 +1,14 @@
 const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
 
 class CartManager {
   constructor(path) {
     this.path = path;
     this.cart = [];
-    this.nextId = 1;
-    fs.promises
-      .readFile(this.path, "utf-8")
-      .then((data) => {
-        const carts = JSON.parse(data);
-        if (carts.length > 0) {
-          const maxId = carts.reduce(
-            (acc, curr) => (curr.id > acc ? curr.id : acc),
-            carts[0].id
-          );
-          this.nextId = maxId + 1;
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    this.Id = uuidv4();
   }
 
-  async getCarts() {
-    try {
-      const data = await fs.promises.readFile(this.path, "utf-8");
-      const carts = JSON.parse(data);
-      return carts;
-    } catch (err) {
-      console.error(err);
-    }
-  }
+
 
   async getCartById(id) {
     try {
@@ -48,7 +26,7 @@ class CartManager {
       const data = await fs.promises.readFile(this.path, "utf-8");
       const carts = JSON.parse(data);
       const newCart = {
-        id: this.nextId,
+        id: this.Id,
         products: products,
       };
       carts.push(newCart);
@@ -59,17 +37,23 @@ class CartManager {
     }
   }
 
-  async updateCart(id, products) {
+  async addProductToCart(cartId, productId) {
     try {
       const data = await fs.promises.readFile(this.path, "utf-8");
       const carts = JSON.parse(data);
-      const cartIndex = carts.findIndex((cart) => cart.id === id);
+      const cartIndex = carts.findIndex((cart) => cart.id === cartId);
       if (cartIndex === -1) {
-        return null;
+        return null; 
       }
-      carts[cartIndex].products = products;
+      const cart = carts[cartIndex];
+      const productIndex = cart.products.findIndex((p) => p.id === productId);
+      if (productIndex === -1) {
+        cart.products.push({ id: productId, quantity: 1 });
+      } else {
+        cart.products[productIndex].quantity++;
+      }
       await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2));
-      return carts[cartIndex];
+      return cart;
     } catch (err) {
       console.error(err);
     }

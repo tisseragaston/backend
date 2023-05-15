@@ -14,8 +14,14 @@ const productManager = new ProductManager("./productos.json");
 // Obtener todos los productos
 router.get('/', async (req, res) => {
   try {
+    const limit = req.query.limit;
     const products = await productManager.getProducts();
-    res.json(products);
+    if (limit) {
+      const limitedProducts = products.slice(0, limit);
+      res.json(limitedProducts);
+    } else {
+      res.json(products);
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send('Something fail');
@@ -42,22 +48,29 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { title, description, price, thumbnail, code, stock } = req.body;
+    const productNow = await productManager.getProducts();
+    if (productNow.find((product) => product.code === code)) {
+      res.status(401).send('producto ya existente');
+      return;
+    } else {
     await productManager.addProduct(title, description, price, thumbnail, code, stock);
     const products = await productManager.getProducts();
     const newProduct = products[products.length - 1];
     res.status(201).json(newProduct);
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send('Something fail');
-  }
+  
+}
 });
 
 // Actualizar un producto por ID
 router.put('/:id', async (req, res) => {
 try {
 const id = Number(req.params.id);
-const { title, description, price, thumbnail, code, stock } = req.body;
-const updatedProduct = await productManager.updateProduct(id, title, description, price, thumbnail, code, stock);
+const updateThis = req.body; // objeto con los campos a actualizar
+const updatedProduct = await productManager.updateProduct(id, updateThis);
 if (updatedProduct) {
 res.json(updatedProduct);
 } else {

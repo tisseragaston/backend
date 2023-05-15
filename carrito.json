@@ -1,22 +1,14 @@
 [
   {
-    "id": 1,
+    "id": "48ee6476-cbe3-4a63-99ac-448bcc4c3e76",
+    "products": []
+  },
+  {
+    "id": "b687614e-7414-4ae5-9e0d-a7f500156e43",
     "products": [
       {
-        "title": "manaos",
-        "id": "p101",
-        "description": "5 litros",
-        "price": 400
-      },
-      {
-        "title": "vergel",
-        "id": "p102",
-        "description": "2 litros",
-        "price": 500
-      },
-      {
-        "product": null,
-        "quantity": null
+        "id": "2",
+        "quantity": 3
       }
     ]
   }
