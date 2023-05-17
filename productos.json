@@ -1,11 +1,65 @@
 [
   {
     "id": "4cf8822c-a14d-47e8-b6f3-6640c83f7b0c",
-    "title": "soda",
+    "title": "Soda",
     "description": "1 litros",
     "price": 300,
     "thumbnail": "sin imagen",
     "code": "abc125",
     "stock": 10
+  },
+  {
+    "id": "1550112e-a60b-47e5-9e72-6bc9073953bc",
+    "title": "Coca",
+    "description": "2 litros",
+    "price": "450",
+    "thumbnail": "sin imagen",
+    "code": "abc142",
+    "stock": "7"
+  },
+  {
+    "id": "14638462-4d5d-4ea5-900c-6f57c3acd18f",
+    "title": "Vino",
+    "description": "1 litros",
+    "price": "400",
+    "thumbnail": "sin imagen",
+    "code": "abc143",
+    "stock": "9"
+  },
+  {
+    "id": "4f24365e-4548-41f1-a161-517a924b59cc",
+    "title": "Manaos",
+    "description": "2 litros",
+    "price": "180",
+    "thumbnail": "sin imagen",
+    "code": "abc144",
+    "stock": "6"
+  },
+  {
+    "id": "58ef11a6-7bd0-4fbc-892f-5e3400089353",
+    "title": "Sprite",
+    "description": "2 litros",
+    "price": "300",
+    "thumbnail": "sin imagen",
+    "code": "abc145",
+    "stock": "5"
+  },
+  {
+    "id": "08cdc184-3a94-432e-a2ee-ad6040f179ab",
+    "title": "Jugo",
+    "description": "3 litros",
+    "price": "400",
+    "thumbnail": "sin imagen",
+    "code": "abc146",
+    "stock": "12"
+  },
+  {
+    "id": "91be22a3-75f5-421f-a3ae-eae5dadf60bb",
+    "title": "Fernet",
+    "description": "1 litro",
+    "price": "900",
+    "thumbnail": "sin imagen",
+    "code": "abc149",
+    "stock": "15"
   }
 ]
