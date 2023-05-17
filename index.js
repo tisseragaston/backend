@@ -32,8 +32,8 @@ const productManager = new ProductManager("./productos.json");
   app.use(express.json())
   app.use(express.static(__dirname+'/public'))
 
-  app.use('/products', routeProducts)
-  app.use('/carts', routeCarts)
+  app.use('/api/products', routeProducts)
+  app.use('/api/carts', routeCarts)
   app.use('/realtimeproducts', routeRealtime)
 
   io.on('connection', async (socket)=> {

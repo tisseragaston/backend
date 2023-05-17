@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
 // Obtener un producto por ID
 router.get('/:id', async (req, res) => {
   try {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     const product = await productManager.getProductById(id);
     if (product) {
       res.json(product);
@@ -48,6 +48,11 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { title, description, price, thumbnail, code, stock } = req.body;
+
+    if (!title || !description || !price || !thumbnail || !code || !stock) {
+      throw new Error('Todos los campos son requeridos');
+    }
+
     const productNow = await productManager.getProducts();
     if (productNow.find((product) => product.code === code)) {
       res.status(401).send('producto ya existente');
@@ -60,7 +65,7 @@ router.post('/', async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send('Something fail');
+    res.status(400).send(err.message);
   
 }
 });
@@ -68,7 +73,7 @@ router.post('/', async (req, res) => {
 // Actualizar un producto por ID
 router.put('/:id', async (req, res) => {
 try {
-const id = Number(req.params.id);
+const id = req.params.id;
 const updateThis = req.body; // objeto con los campos a actualizar
 const updatedProduct = await productManager.updateProduct(id, updateThis);
 if (updatedProduct) {
@@ -85,7 +90,7 @@ res.status(500).send('Something fail');
 // Eliminar un producto por ID
 router.delete('/:id', async (req, res) => {
 try {
-const id = Number(req.params.id);
+const id = req.params.id;
 const deletedProduct = await productManager.deleteProduct(id);
 if (deletedProduct) {
 res.json(deletedProduct);

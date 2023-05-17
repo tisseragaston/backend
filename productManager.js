@@ -8,11 +8,11 @@ class ProductManager {
     this.Id = uuidv4();
   }
 
-  addProduct = async (title, description, price, thumbnail, code, stock) => {
+  addProduct = async (title, description, price, thumbnail, code, stock, status = true) => {
     try {
       await this.getProducts();
 
-      if (!title || !description || !price || !thumbnail || !code || !stock) {
+      if (!title || !description || !price || !code || !stock) {
         console.log("Todos los campos son obligatorios");
         return;
       }
@@ -28,6 +28,7 @@ class ProductManager {
         thumbnail,
         code,
         stock,
+        status,
       };
       this.products.push(product);
       await fs.promises.writeFile(
@@ -124,3 +125,5 @@ class ProductManager {
 }
 
 module.exports = ProductManager;
+
+
